@@ -39,4 +39,12 @@ public class LoginTests extends BaseTest{
         myAccountSteps.verifyPasswordResetNotification();
 
     }
+    @Test
+    public void validAdminLoginTest(){
+        loginSteps.navigateToAccountPage();
+        loginSteps.typeUserMail(Constants.ADMIN_EMAIL);
+        loginSteps.typeUserPassword(Constants.ADMIN_PASSWORD);
+        loginSteps.clickLoginButton();
+        adminSteps.checkIfAdminSiteNamePopUpIsVisibleAndClickable();
+    }
 }

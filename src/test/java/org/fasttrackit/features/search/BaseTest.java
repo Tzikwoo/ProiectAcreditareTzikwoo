@@ -8,6 +8,7 @@ import org.fasttrackit.steps.serenity.*;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 @RunWith(SerenityRunner.class)
 public class BaseTest {
@@ -35,5 +36,6 @@ public class BaseTest {
     public void initTests(){
         driver.manage().window().maximize();
         driver.get(Constants.BASE_URL);
+        Actions action = new Actions(driver);
     }
 }

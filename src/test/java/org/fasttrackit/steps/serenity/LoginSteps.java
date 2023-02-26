@@ -44,4 +44,8 @@ public class LoginSteps extends BaseSteps{
         loginPage.clickLostPasswordLink();
 
     }
+    @Step
+    public void navigateToHomepage(){
+        homePage.open();
+    }
 }
