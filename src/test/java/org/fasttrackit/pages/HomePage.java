@@ -9,8 +9,16 @@ import org.openqa.selenium.support.FindBy;
 public class HomePage extends PageObject {
     @FindBy(id = "menu-item-58")
     private WebElementFacade accountLink;
+    @FindBy (id = "woocommerce-product-search-field-0")
+    private WebElementFacade searchField;
+    @FindBy (css = "button[value=\"Search\"]")
+    private WebElementFacade searchButton;
 
     public void clickOnAccountLink(){
         clickOn(accountLink);
+    }
+    public void searchAndClick(String productName){
+        typeInto(searchField,productName);
+        clickOn(searchButton);
     }
 }

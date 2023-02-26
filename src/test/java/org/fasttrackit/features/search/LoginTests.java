@@ -16,4 +16,27 @@ public class LoginTests extends BaseTest{
     loginSteps.clickLoginButton();
     loginSteps.verifyWelcomeMessage("bogdi_perte98");
     }
+    @Test
+    public void invalidPasswordLoginTest(){
+        loginSteps.navigateToAccountPage();
+        loginSteps.typeUserMail(Constants.USER_EMAIL);
+        loginSteps.typeUserPassword("123456");
+        loginSteps.clickLoginButton();
+        loginSteps.invalidPasswordMessage();
+    }
+    @Test
+    public void emptyFieldsLoginTest(){
+        loginSteps.navigateToAccountPage();
+        loginSteps.clickLoginButton();
+        loginSteps.usernameRequiredMessage();
+    }
+    @Test
+    public void verifyPasswordResetTest(){
+        loginSteps.navigateToAccountPage();
+        loginSteps.clickLostPasswordLink();
+        myAccountSteps.typeLostEmail(Constants.USER_EMAIL);
+        myAccountSteps.clickResetPasswordButton();
+        myAccountSteps.verifyPasswordResetNotification();
+
+    }
 }
