@@ -9,10 +9,10 @@ import org.openqa.selenium.support.FindBy;
 public class CartPage extends PageObject {
     @FindBy(css = ".product-price .amount")
     private WebElementFacade individualPriceText;
-    @FindBy (css = ".wc-proceed-to-checkout a")
+    @FindBy (css = "#post-5 > div > div > div > div > div > a")
     private WebElementFacade proceedToCheckoutButton;
     @FindBy (css = ".product-subtotal .amount")
-    private WebElementFacade totalPriceText;
+    private WebElementFacade subTotalPriceText;
     @FindBy (css = ".quantity .input-text")
     private WebElementFacade quantitySpinner;
     @FindBy (css = "[value=\"Update cart\"]")
@@ -31,16 +31,23 @@ public class CartPage extends PageObject {
     private WebElementFacade couponField;
     @FindBy (css = "#post-5 > div > div > ul > li")
     private WebElementFacade couponDoesntExistMessage;
+    @FindBy (css = "#post-5 > div > div > div > div > table > tbody > tr.order-total > td > strong > span")
+    private WebElementFacade totalPriceText;
+    @FindBy (css = "#post-5 > div > div > ul > li")
+    private WebElementFacade sumUnder50Message;
+    @FindBy (css = "#post-5 > div > div > div.woocommerce-message")
+    private WebElementFacade couponAppliedMessage;
 
 
 
     public void clickProceedToCheckoutButton(){
+        waitFor(proceedToCheckoutButton);
         clickOn(proceedToCheckoutButton);
     }
 
     public boolean checkPricesAreEqual(){
         String individualPrice = individualPriceText.getText();
-        String totalPrice = totalPriceText.getText();
+        String totalPrice = subTotalPriceText.getText();
         int x = Integer.parseInt(individualPrice.replaceAll(",","").replaceAll(" lei",""));
         int y = Integer.parseInt(totalPrice.replaceAll(",","").replaceAll(" lei",""));
         return x==y;
@@ -59,9 +66,9 @@ public class CartPage extends PageObject {
     }
     public boolean checkForNPricesAreEqual(int n) {
         waitFor(individualPriceText);
-        waitFor(totalPriceText);
+        waitFor(subTotalPriceText);
         String individualPrice = individualPriceText.getText();
-        String totalPrice = totalPriceText.getText();
+        String totalPrice = subTotalPriceText.getText();
         int x = Integer.parseInt(individualPrice.replaceAll(",", "").replaceAll(" lei", ""));
         int y = Integer.parseInt(totalPrice.replaceAll(",", "").replaceAll(" lei", ""));
         return x*n == y;
@@ -95,5 +102,27 @@ public class CartPage extends PageObject {
     }
     public String getCouponDoesntExistMessageText(){
         return couponDoesntExistMessage.getText();
+    }
+    public String getSumUnder50MessageText(){
+        return sumUnder50Message.getText();
+    }
+    public boolean checkPriceUnder50(){
+        String totalPrice = totalPriceText.getText();
+        int total = Integer.parseInt(totalPrice.replaceAll(",","").replaceAll(" lei",""));
+        if (total < 5000)
+            return  true;
+            else
+                return  false;
+
+    }
+    public String getCouponAppliedMessageText(){
+        return couponAppliedMessage.getText();
+    }
+    public boolean checkIfPromo30Works(){
+        String subTotal = subTotalPriceText.getText();
+        String total = totalPriceText.getText();
+        int subTotalPrice = Integer.parseInt(subTotal.replaceAll(",","").replaceAll(" lei",""));
+        int totalPrice = Integer.parseInt(total.replaceAll(",","").replaceAll(" lei",""));
+        return subTotalPrice - subTotalPrice*0.3 == totalPrice;
     }
 }

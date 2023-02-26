@@ -27,6 +27,12 @@ public class CheckoutPage extends PageObject {
     private WebElementFacade placeOrderButton;
     @FindBy (css = "#post-6 > div > div > div > p.woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-received")
     private WebElementFacade orderConfirmationMessage;
+    @FindBy (css = ".cart-subtotal .amount")
+    private WebElementFacade subTotalPrice;
+    @FindBy(css = ".order-total .amount")
+    private WebElementFacade totalPrice;
+    @FindBy (css = ".showlogin")
+    private WebElementFacade returningCustomerLink;
 
     public void typeFirstName(String firstName){
         typeInto(firstNameField,firstName);
@@ -69,8 +75,31 @@ public class CheckoutPage extends PageObject {
         phoneField.type("0743942953");
         emailField.type("bogdanlaurentiu@yahoo.com");
     }
+    public void completeCheckoutFieldsRegisteredUser(){
+        firstNameField.type("Bogdan");
+        lastNameField.type("Perte");
+        countryDropdown.selectByValue("RO");
+        streetAndNumberField.type("25 Grigore Alexandrescu Street");
+        cityField.type("Cluj-Napoca");
+        countyDropdown.selectByValue("CJ");
+        postcodeField.type("400529");
+        phoneField.type("0743942953");
+    }
     public String getConfirmationText(){
         waitFor(orderConfirmationMessage);
         return orderConfirmationMessage.getText();
+    }
+    public boolean checkIfPromo30Works(){
+        String subTotal = subTotalPrice.getText();
+        String total = totalPrice.getText();
+        int subTotalPrice = Integer.parseInt(subTotal.replaceAll(",","").replaceAll(" lei",""));
+        int totalPrice = Integer.parseInt(total.replaceAll(",","").replaceAll(" lei",""));
+        return subTotalPrice - subTotalPrice*0.3 == totalPrice;
+    }
+    public boolean checkIfReturningCustomerLinkIsVisibleAndClickable(){
+        if (returningCustomerLink.isVisible()&&returningCustomerLink.isClickable())
+            return true;
+        else
+            return false;
     }
 }

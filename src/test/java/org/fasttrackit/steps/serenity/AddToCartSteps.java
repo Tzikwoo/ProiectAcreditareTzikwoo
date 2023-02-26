@@ -68,4 +68,26 @@ public class AddToCartSteps extends BaseSteps{
     public void checkCouponDoesntExistMessage(){
         Assert.assertEquals("Coupon \"ghhhs\" does not exist!",cartPage.getCouponDoesntExistMessageText());
     }
+    @Step
+    public void checkSumUnder50Message(){
+        Assert.assertEquals("The minimum spend for this coupon is 50,00 lei.", cartPage.getSumUnder50MessageText());
+
+    }
+    @Step
+    public void checkSumUnder50(){
+        Assert.assertTrue(cartPage.checkPriceUnder50());
+    }
+    @Step
+    public void checkUnder50Complete(){
+        Assert.assertEquals("The minimum spend for this coupon is 50,00 lei.", cartPage.getSumUnder50MessageText());
+        Assert.assertTrue(cartPage.checkPriceUnder50());
+    }
+    @Step
+    public void checkPromoCodeApplied(){
+        Assert.assertEquals("Coupon code applied successfully.", cartPage.getCouponAppliedMessageText());
+    }
+    @Step
+    public void checkIfPromo30Works(){
+        Assert.assertTrue(cartPage.checkIfPromo30Works());
+    }
 }

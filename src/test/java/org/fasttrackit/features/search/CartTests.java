@@ -94,4 +94,38 @@ public class CartTests extends BaseTest{
         addToCartSteps.checkCouponDoesntExistMessage();
 
     }
+    @Test
+    public void checkMessageForPriceUnder50Test(){
+        searchSteps.searchAndClick("Beanie");
+        searchSteps.selectProductFromList("Beanie with Logo");
+        addToCartSteps.clickAddToCart();
+        addToCartSteps.clickViewCartButton();
+        addToCartSteps.typeCoupon("promo30");
+        addToCartSteps.clickApplyCouponButton();
+        addToCartSteps.checkUnder50Complete();
+    }
+    @Test
+    public void checkIfPromo30MessageIsDisplayedTest(){
+        String itemName = "Beanie with Logo";
+        searchSteps.searchAndClick("Beanie");
+        searchSteps.selectProductFromList(itemName);
+        productSteps.changeQuantity(3);
+        addToCartSteps.clickAddToCart();
+        addToCartSteps.clickViewCartButton();
+        addToCartSteps.typeCoupon("promo30");
+        addToCartSteps.clickApplyCouponButton();
+        addToCartSteps.checkPromoCodeApplied();
+    }
+    @Test
+    public void checkIfPromo30Works(){
+        String itemName = "Beanie with Logo";
+        searchSteps.searchAndClick("Beanie");
+        searchSteps.selectProductFromList(itemName);
+        productSteps.changeQuantity(3);
+        addToCartSteps.clickAddToCart();
+        addToCartSteps.clickViewCartButton();
+        addToCartSteps.typeCoupon("promo30");
+        addToCartSteps.clickApplyCouponButton();
+        addToCartSteps.checkIfPromo30Works();
+    }
 }
