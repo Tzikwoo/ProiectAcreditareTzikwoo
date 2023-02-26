@@ -25,8 +25,8 @@ public class AddToCartSteps extends BaseSteps{
         Assert.assertTrue(cartPage.checkPricesAreEqual());
     }
     @Step
-    public void changeQuantity(String n){
-        cartPage.typeQuantity(n);
+    public void changeQuantity(int n){
+        cartPage.setSpinnerValue(n);
     }
     @Step
     public void checkForNPricesAreEqual(int n){
@@ -59,5 +59,13 @@ public class AddToCartSteps extends BaseSteps{
     @Step
     public void checkIfEnterCouponMessageIsDisplayed(){
         Assert.assertEquals("Please enter a coupon code.",cartPage.getEnterCouponMessageText());
+    }
+    @Step
+    public void typeCoupon(String coupon){
+        cartPage.typeCoupon(coupon);
+    }
+    @Step
+    public void checkCouponDoesntExistMessage(){
+        Assert.assertEquals("Coupon \"ghhhs\" does not exist!",cartPage.getCouponDoesntExistMessageText());
     }
 }

@@ -40,4 +40,8 @@ public class ProductSteps extends BaseSteps{
     public void isReviewInList(String review){
         Assert.assertTrue(productPage.isReviewInList(review));
     }
+    @Step
+    public void changeQuantity(int n){
+        productPage.setSpinnerValue(n);
+    }
 }

@@ -17,4 +17,14 @@ public class ProductTests extends BaseTest{
         productSteps.clickCategoryLink();
         searchSteps.isProductInList(itemName);
     }
+    @Test
+    public void changeQuantityOnProductPageTest(){
+        String itemName = "Beanie with Logo";
+        searchSteps.searchAndClick("Beanie");
+        searchSteps.selectProductFromList(itemName);
+        productSteps.changeQuantity(3);
+        addToCartSteps.clickAddToCart();
+        addToCartSteps.clickViewCartButton();
+        addToCartSteps.checkForNPricesAreEqual(3);
+    }
 }

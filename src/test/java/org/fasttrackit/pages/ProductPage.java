@@ -2,6 +2,7 @@ package org.fasttrackit.pages;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
@@ -29,6 +30,8 @@ public class ProductPage extends PageObject {
     private WebElementFacade submitReviewButton;
     @FindBy(css = ".description")
     private List<WebElementFacade> listOfReviews;
+    @FindBy (css = ".quantity .input-text")
+    private WebElementFacade quantitySpinner;
 
     public void clickAddToCartButton() {
         clickOn(addToCartButton);
@@ -87,4 +90,17 @@ public class ProductPage extends PageObject {
         return false;
 
     }
+    public void setSpinnerValue(int value) {
+        int currentValue = Integer.parseInt(quantitySpinner.getAttribute("value"));
+        while (currentValue != value) {
+            if (currentValue > value) {
+                quantitySpinner.sendKeys(Keys.ARROW_DOWN);
+                currentValue--;
+            } else {
+                quantitySpinner.sendKeys(Keys.ARROW_UP);
+                currentValue++;
+            }
+        }
+    }
 }
+

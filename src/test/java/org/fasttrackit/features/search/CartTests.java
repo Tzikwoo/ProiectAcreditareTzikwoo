@@ -31,7 +31,7 @@ public class CartTests extends BaseTest{
         searchSteps.selectProductFromList("Beanie with Logo");
         addToCartSteps.clickAddToCart();
         addToCartSteps.clickViewCartButton();
-        addToCartSteps.changeQuantity("3");
+        addToCartSteps.changeQuantity(3);
         addToCartSteps.updateCart();
         addToCartSteps.checkForNPricesAreEqual(3);
     }
@@ -82,5 +82,16 @@ public class CartTests extends BaseTest{
         addToCartSteps.clickViewCartButton();
         addToCartSteps.clickApplyCouponButton();
         addToCartSteps.checkIfEnterCouponMessageIsDisplayed();
+    }
+    @Test
+    public void checkMessageForInvalidCouponTest(){
+        searchSteps.searchAndClick("Beanie");
+        searchSteps.selectProductFromList("Beanie with Logo");
+        addToCartSteps.clickAddToCart();
+        addToCartSteps.clickViewCartButton();
+        addToCartSteps.typeCoupon("ghhhs");
+        addToCartSteps.clickApplyCouponButton();
+        addToCartSteps.checkCouponDoesntExistMessage();
+
     }
 }
